@@ -1,4 +1,4 @@
-# Love currency converter
+# Live currency converter
 
 This works on an open API 
 

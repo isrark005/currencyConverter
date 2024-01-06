@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { InputBox } from './components'
+import { InputBox, UsdHistory } from './components'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
+import { CountryName } from './hooks/countryName'
 
 function App() {
  
@@ -9,9 +10,16 @@ function App() {
     const [to, setTo] = useState("inr")
     const [convertedAmount, setConvertedAmount] = useState(0)
 
+    const countryNames = CountryName()
     const currencyInfo = useCurrencyInfo(from)
+   
+    // console.log(countryNames);
     
     const options = Object.keys(currencyInfo)
+    // const options = Object.keys(currencyInfo).map(currencyCode => {
+    //     const countryNameObject = Object.values(countryNames).find(country => country.currency_code === currencyCode);
+    //     return countryNameObject ? countryNameObject.country_name : currencyCode;
+    //   });
     
 
     const swap = ()=> {
@@ -23,9 +31,7 @@ function App() {
 
     const convert = () => {
       setConvertedAmount(amount * currencyInfo[to])
-      console.log(amount);
-      console.log(currencyInfo[to]);
-      console.log(amount * currencyInfo[to]);
+      ;
     }
   return (
     <div
@@ -36,6 +42,7 @@ function App() {
     >
         <div className="w-full">
             <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+                <UsdHistory />
                 <h1 className=' text-3xl font-bold m-3 text-center '>Currency Converter</h1>
                 <form
                     onSubmit={(e) => {

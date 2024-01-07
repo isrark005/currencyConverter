@@ -3,12 +3,13 @@ import useCurrencyInfo from '../hooks/useCurrencyInfo'
 
 
 export function UsdHistory() {
-    const [usdTrack, setUsdTrack] = useState([])
-    const currencyInfo = useCurrencyInfo('usd')
+    
+    const currencyInfo = (Math.round(useCurrencyInfo('usd').inr * 100) / 100).toFixed(2)
+    
 
     return (
-       <div>
-        {currencyInfo.inr}
-       </div>
+       <span>
+        {currencyInfo}
+       </span>
     )
 }

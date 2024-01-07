@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useId, useEffect } from 'react'
 import { InputBox, UsdHistory } from './components'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 import { CountryName } from './hooks/countryName'
@@ -9,11 +9,41 @@ function App() {
     const [from, setFrom] = useState("usd")
     const [to, setTo] = useState("inr")
     const [convertedAmount, setConvertedAmount] = useState(0)
-
+    const id = useId()
     const countryNames = CountryName()
     const currencyInfo = useCurrencyInfo(from)
+    const usdInrVal =  useCurrencyInfo("usd")
+    const date = new Date().toLocaleDateString('en-GB')
+    const [pastData, setPastData] = useState([])
    
-    // console.log(countryNames);
+
+    useEffect(() => {
+        
+        setPastData((prev) => [
+            {
+                date: date,
+                price: <UsdHistory />
+            },
+            ...prev.slice(0, 9)
+        ]);
+    
+       
+        const intervalId = setInterval(() => {
+            setPastData((prev) => [
+                {
+                    date: date,
+                    price: <UsdHistory />
+                },
+                ...prev.slice(0, 9)
+            ]);
+        }, 24 * 60 * 60 * 1000);
+    
+       
+        return () => clearInterval(intervalId);
+    }, []);
+    
+
+
     
     const options = Object.keys(currencyInfo)
     // const options = Object.keys(currencyInfo).map(currencyCode => {
@@ -35,14 +65,13 @@ function App() {
     }
   return (
     <div
-        className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+        className=" w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
         style={{
             backgroundImage: `url(https://images.pexels.com/photos/164637/pexels-photo-164637.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)`,
         }}
     >
-        <div className="w-full">
-            <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
-                <UsdHistory />
+        <div className="w-8/12">
+            <div className="  max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
                 <h1 className=' text-3xl font-bold m-3 text-center '>Currency Converter</h1>
                 <form
                     onSubmit={(e) => {
@@ -86,6 +115,15 @@ function App() {
                         Convert {from.toUpperCase()} to {to.toUpperCase()}
                     </button>
                 </form>
+            </div>
+        </div>
+        <div className='w-4/12 backdrop-blur-sm shadow-2xl  h-full'>
+            <div  className='m-10'><h2 className=' text-center font-bold text-xl text-white mb-2'>Track of Indian Rupees as 1USD <br/>in last 10 days</h2>
+                <ul>
+                {pastData?.map((data)=> (
+                    <li  className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.date} <span className=' float-right'> ₹{data.price}</span></li>
+                ))}
+                </ul>
             </div>
         </div>
     </div>

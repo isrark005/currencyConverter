@@ -1,4 +1,5 @@
 import React, {useId} from 'react'
+// import { nanoid } from 'nanoid'
 
 function InputBox({
     label,
@@ -12,7 +13,7 @@ function InputBox({
     className = "",
 }) {
    const amountInputId = useId()
-
+    // const valueId = nanoid(5)
     return (
         <div className={`bg-white p-3 rounded-lg text-sm flex ${className}`}>
             <div className="w-1/2">

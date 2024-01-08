@@ -72,7 +72,7 @@ function App() {
         }}
     >
         <div className='w-full flex h-full items-center max-md:flex-col'>
-        <div className="w-8/12">
+        <div className="w-8/12 max-md:w-10/12">
             <div className="  max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30 max-md:my-10">
                 <h1 className=' text-3xl font-bold m-3 text-center '>Currency Converter</h1>
                 <form

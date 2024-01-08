@@ -34,5 +34,5 @@ This repository contains the source code for a Currency Converter application bu
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-currency-converter.git
+   git clone https://github.com/isrark005/your-currency-converter.git
    cd your-currency-converter

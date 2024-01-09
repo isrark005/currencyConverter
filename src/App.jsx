@@ -39,7 +39,7 @@ function App() {
                 },
                 ...prev.slice(0, 9)
             ]);
-        }, 500);
+        }, 1000 * 60 * 60 * 24);
     
        
         return () => clearInterval(intervalId);

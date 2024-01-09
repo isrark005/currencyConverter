@@ -1,44 +1,49 @@
-import { useState, useEffect } from 'react'
-import { InputBox, UsdHistory } from './components'
+import { useState, useEffect, useId } from 'react'
+import { InputBox } from './components'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 import CountryName from './hooks/countryName'
 
 function App() {
- 
+    const newId = new useId()
     const [amount, setAmount] = useState(0)
     const [from, setFrom] = useState("usd")
     const [to, setTo] = useState("inr")
     const [convertedAmount, setConvertedAmount] = useState(0)
     const currencyInfo = useCurrencyInfo(from)
-    const date = new Date().toLocaleDateString('en-GB')
     const [pastData, setPastData] = useState([])
     const countryNames = CountryName()
+    const currencyInfoHis = (Math.round(useCurrencyInfo('usd').inr * 100) / 100).toFixed(2)
    
 
     useEffect(() => {
+
+        const currentDate = new Date()
+        const formattedDate = currentDate.toLocaleDateString('en-GB');
         
-        setPastData((prev) => [
-            {
-                date: date,
-                price: <UsdHistory />
-            },
-            ...prev.slice(0, 9)
-        ]);
+        const trackPrice = currencyInfoHis
+        // console.log(trackPrice);
+        // setPastData((prev) => [
+        //     {
+        //         date: formattedDate,
+        //         price: trackPrice
+        //     },
+        //     ...prev.slice(0, 9)
+        // ]);
     
        
         const intervalId = setInterval(() => {
             setPastData((prev) => [
                 {
-                    date: date,
-                    price: <UsdHistory />
+                    date: formattedDate,
+                    price: trackPrice
                 },
                 ...prev.slice(0, 9)
             ]);
-        }, 24 * 60 * 60 * 1000);
+        }, 500);
     
        
         return () => clearInterval(intervalId);
-    }, []);
+    }, [currencyInfoHis]);
     
 
 
@@ -122,8 +127,8 @@ function App() {
         <div className='w-4/12 backdrop-blur-sm shadow-2xl  h-full max-md:w-full overflow-y-scroll'>
             <div  className='m-10'><h2 className=' text-center font-bold text-xl text-white mb-2'>Track of Indian Rupees as 1USD <br/>in last 10 days</h2>
                 <ul>
-                {pastData?.map((data)=> (
-                    <li key={data} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.date} <span className=' float-right'> ₹{data.price}</span></li>
+                {pastData?.map((data, index)=> (
+                    <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.date} <span className=' float-right'> ₹{data.price}</span></li>
                 ))}
                 </ul>
             </div>

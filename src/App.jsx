@@ -43,10 +43,12 @@ function App() {
                 },
                 ...prev
             ]);
+
             if(pastData.length > 10){
                 pastData.shift()
             }
-           console.log(pastData);
+        
+
         }, 1000 * 60 * 60 * 24);
     
        

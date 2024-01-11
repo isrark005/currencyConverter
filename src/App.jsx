@@ -21,13 +21,16 @@ function App() {
         const formattedDate = currentDate.toLocaleDateString('en-GB');
         
         const trackPrice = currencyInfoHis
+
+
+        
         // console.log(trackPrice);
         // setPastData((prev) => [
         //     {
         //         date: formattedDate,
         //         price: trackPrice
         //     },
-        //     ...prev.slice(0, 9)
+        //     ...prev.splice(0, 9)
         // ]);
     
        
@@ -35,11 +38,16 @@ function App() {
             setPastData((prev) => [
                 {
                     date: formattedDate,
-                    price: trackPrice
+                    price: trackPrice,
+                    // id: Math.floor(Math.random() * 11)
                 },
-                ...prev.slice(0, 9)
+                ...prev
             ]);
-        }, 500);
+            if(pastData.length > 10){
+                pastData.shift()
+            }
+           console.log(pastData);
+        }, 1000 * 60 * 60 * 24);
     
        
         return () => clearInterval(intervalId);
@@ -54,8 +62,6 @@ function App() {
       
     //  });
 
-
-    //   console.log(sortedName[0]?.currency_number);
     
 
     const swap = ()=> {
@@ -131,6 +137,7 @@ function App() {
                     <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.date} <span className=' float-right'> ₹{data.price}</span></li>
                 ))}
                 </ul>
+                <p className=' text-center text-2xl font-bold'>No data</p>
             </div>
         </div>
         </div>

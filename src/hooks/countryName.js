@@ -8,8 +8,8 @@ export default function CountryName() {
             try {
                 const response = await fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/country.json');
                 const data = await response.json();
-                const value = Object.values(data)
-                setCountries(value);
+                
+                setCountries(data);
             } catch (error) {
                 console.error('Error in fetching country name', error);
             }

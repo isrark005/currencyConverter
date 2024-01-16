@@ -13,7 +13,7 @@ function App() {
     const [pastData, setPastData] = useState([])
     const countryNames = CountryName()
     const currencyInfoHis = (Math.round(useCurrencyInfo('usd').inr * 100) / 100).toFixed(2)
-   
+    const updatedCountryNamers = Object.values(countryNames) 
 
     useEffect(() => {
 
@@ -55,7 +55,7 @@ function App() {
         return () => clearInterval(intervalId);
     }, []);
     
-    console.log(countryNames)
+    
 
 
     
@@ -136,9 +136,9 @@ function App() {
         <div className='w-4/12 backdrop-blur-sm shadow-2xl  h-full max-md:w-full overflow-y-scroll'>
             <div  className='m-10'><h2 className=' text-center font-bold text-xl text-white mb-2'>List of Countries <br/>with their currency name</h2>
                 <ul>
-                {countryNames?.map((data, index)=> (
+                {updatedCountryNamers?.map((data, index)=> (
                     <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.country_name} <span className=' float-right'> {data.currency_code}</span></li>
-                ))}
+                )) }
                 </ul>
                 <p className=' text-center text-2xl font-bold'>No data</p>
             </div>

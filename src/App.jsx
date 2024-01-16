@@ -53,6 +53,7 @@ function App() {
         return () => clearInterval(intervalId);
     }, []);
     
+    console.log(countryNames)
 
 
     
@@ -131,10 +132,10 @@ function App() {
             </div>
         </div>
         <div className='w-4/12 backdrop-blur-sm shadow-2xl  h-full max-md:w-full overflow-y-scroll'>
-            <div  className='m-10'><h2 className=' text-center font-bold text-xl text-white mb-2'>Track of Indian Rupees as 1USD <br/>in last 10 days</h2>
+            <div  className='m-10'><h2 className=' text-center font-bold text-xl text-white mb-2'>List of Countries <br/>with their currency name</h2>
                 <ul>
-                {pastData?.map((data, index)=> (
-                    <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.date} <span className=' float-right'> ₹{data.price}</span></li>
+                {countryNames?.map((data, index)=> (
+                    <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.country_name} <span className=' float-right'> {data.currency_code}</span></li>
                 ))}
                 </ul>
                 <p className=' text-center text-2xl font-bold'>No data</p>

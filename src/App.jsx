@@ -2,6 +2,7 @@ import { useState, useEffect, useId } from 'react'
 import { InputBox } from './components'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 import CountryName from './hooks/countryName'
+import { SearchBar } from './components/SearchBar'
 
 function App() {
     const newId = new useId()
@@ -14,6 +15,7 @@ function App() {
     const countryNames = CountryName()
     const currencyInfoHis = (Math.round(useCurrencyInfo('usd').inr * 100) / 100).toFixed(2)
     const updatedCountryNamers = Object.values(countryNames) 
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
 
@@ -135,12 +137,15 @@ function App() {
         </div>
         <div className='w-4/12 backdrop-blur-sm shadow-2xl  h-full max-md:w-full overflow-y-scroll'>
             <div  className='m-10'><h2 className=' text-center font-bold text-xl text-white mb-2'>List of Countries <br/>with their currency name</h2>
+            <SearchBar setSearch={setSearch} />
                 <ul>
-                {updatedCountryNamers?.map((data, index)=> (
-                    <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50'>{data.country_name} <span className=' float-right'> {data.currency_code}</span></li>
+                {updatedCountryNamers?.filter((data)=> (
+                    search.toLowerCase() === '' ? data : data.country_name.toLowerCase().includes(search)
+                )).map((data, index)=> (
+                    <li key={index} className='w=full mb-2 border-gray-60 border rounded-lg p-5 backdrop-blur-sm bg-white/50 capitalize'>{data.country_name} <span className=' float-right lowercase'> {data.currency_code}</span></li>
                 )) }
                 </ul>
-                <p className=' text-center text-2xl font-bold'>No data</p>
+               
             </div>
         </div>
         </div>

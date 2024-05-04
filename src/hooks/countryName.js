@@ -6,7 +6,7 @@ export default function CountryName() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/country.json');
+                const response = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/country.json');
                 const data = await response.json();
                 
                 setCountries(data);
